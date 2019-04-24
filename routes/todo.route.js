@@ -39,4 +39,17 @@ router.post('/new', (req, res) => {
     });
 });
 
+//Supression d'une tâche
+router.delete('/:id', (req, res) => {
+    console.log(req.params.id);
+    todoModel.remove({ _id: req.params.id },
+        (err) => {
+            if (err) {
+                res.json({ success: false, error: err });
+            } else {
+                res.json({ success: true });
+            }
+        });
+});
+
 module.exports = router;
