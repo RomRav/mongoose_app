@@ -1,5 +1,6 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //importation du model restaurant
 const RestaurantModel = require('./models/restaurants.model');
@@ -8,13 +9,15 @@ const RestaurantModel = require('./models/restaurants.model');
 const TodoModel = require('./models/todo.model');
 const todoRoutes = require('./routes/todo.route');
 
+//Middleware pour la gestion des CORS (permision pour le navigateur d'envoyer une requête à un autre domaine)
+app.use(cors());
+
 //Utilisation de bodyparser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //importation des routes
 app.use('/task', todoRoutes);
-
 
 
 app.get('/todo', (req, res) => {
