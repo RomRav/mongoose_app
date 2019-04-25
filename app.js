@@ -1,6 +1,7 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 
 //importation du model restaurant
 const RestaurantModel = require('./models/restaurants.model');
@@ -21,11 +22,36 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //importation des routes
 app.use('/task', todoRoutes);
 
+app.use('/register', (req, res, next) => {
+    if (req.method == 'POST') {
+        bcrypt.genSalt(10)
+            .then(
+                (salt) => {
+                    return bcrypt.hash(req.body.password, salt);
+                }
+            )
+            .then(
+                data => {
+                    req.hashedPass = data;
+                    next();
+                }
+            )
+            .catch(err => {
+                console.log(err);
+                next(err);
+            })
+    } else {
+        next();
+    }
+
+});
+
 app.post('/register', (req, res) => {
+
     let user = new UserModel({
         userName: req.body.userName,
         login: req.body.login,
-        password: req.body.password
+        password: req.hashedPass
     });
     user.save((err) => {
         if (err) {

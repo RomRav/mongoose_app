@@ -17,6 +17,8 @@ const UserSchema = new Schema(
     }
 );
 
+
+
 //Création d'un model à partir du schéma
 const UserModel = mongoose.model('users', UserSchema);
 
