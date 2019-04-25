@@ -52,4 +52,12 @@ router.delete('/:id', (req, res) => {
         });
 });
 
+router.put('/', (req, res) => {
+    todoModel.update(
+        { _id: req.body.id },
+        {
+
+        }
+    )
+});
 module.exports = router;
