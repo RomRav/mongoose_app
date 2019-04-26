@@ -63,6 +63,7 @@ router.put('/', (req, res) => {
         },
         (err) => {
             if (err) {
+                console.log(err);
                 res.json({ success: false, error: err });
             } else {
                 res.json({ success: true });
