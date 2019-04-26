@@ -53,11 +53,11 @@ app.post('/register', (req, res) => {
         login: req.body.login,
         password: req.hashedPass
     });
-    user.save((err) => {
+    user.save((err, data) => {
         if (err) {
             res.json({ success: false, error: err });
         } else {
-            console.log(user);
+            console.log(data);
             res.json({ success: true, data: user });
         }
     });

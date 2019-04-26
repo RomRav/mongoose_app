@@ -53,9 +53,20 @@ router.delete('/:id', (req, res) => {
 });
 
 router.put('/', (req, res) => {
-    todoModel.update(
-        { _id: req.body.id },
+    console.log(req.body);
+    todoModel.updateOne(
+        { _id: req.body._id },
         {
+            taskName: req.body.taskName,
+            done: req.body.done,
+            createdAt: new Date(req.body.createdAt)
+        },
+        (err) => {
+            if (err) {
+                res.json({ success: false, error: err });
+            } else {
+                res.json({ success: true });
+            }
 
         }
     )
